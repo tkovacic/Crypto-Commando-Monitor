@@ -1,7 +1,7 @@
 <div align="center">
   <h1>Crypto Commando Trader</h1>
   <p>Automated python based cryptographic trading engine built using hard coded rulesets based on conceptualized and customized delegation levels commissioned through CoinBase Pro API Platform by Tim Kovacic using CBPro SDK by DanPaguin</p><br>
-  <img width="560" height="456" src="https://static.wixstatic.com/media/c11e26_98214627f32540f7939870093be0a03b~mv2.png/v1/fill/w_560,h_456,al_c,q_85,usm_0.66_1.00_0.01/vectorstock_19626918_edited.webp">
+  <img src="https://static.wixstatic.com/media/c11e26_98214627f32540f7939870093be0a03b~mv2.png/v1/fill/w_560,h_456,al_c,q_85,usm_0.66_1.00_0.01/vectorstock_19626918_edited.webp">
 </div>
 <br>
 
@@ -36,6 +36,12 @@ DELEGATION01 => $0.75
 ```
 
 If today's current price (TCP) breaks into the delegation above it will trigger a sell order and if it breaks into the delegation below it will trigger a buy order. Delegation 1 and 10 will trigger a full trade volume order. Delegation 2 and 9 will trigger a 4/5 trade volume order. Delegation 3 and 8 will trigger a 3/5 trade volume order. Delegation 4 and 7 will trigger a 2/5 trade volume order. Delegation 5 and 6 will trigger a 1/5 trade volume order.
+
+<img src="https://github.com/tkovacic/Crypto-Commando-Monitor/blob/main/readme1.PNG?raw=true">
+</div>
+
+<img src="https://github.com/tkovacic/Crypto-Commando-Monitor/blob/main/readme2.PNG?raw=true">
+</div>
 
 # Prerequisites
 1) Download and Install Git Bash Terminal (https://gitforwindows.org/)
