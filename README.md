@@ -47,6 +47,7 @@ If TCP breaks above Delegation level 6 and crosses back below past the YSP it wi
 </div>
 
 # Prerequisites
+1) Register an account on Coinbase Pro (https://pro.coinbase.com/)
 1) Download and Install Git Bash Terminal (https://gitforwindows.org/)
 2) Download and Install Python (https://www.python.org/downloads/)
 3) Open Git Bash Terminal and Execute:
