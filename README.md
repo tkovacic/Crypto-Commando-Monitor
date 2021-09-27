@@ -48,7 +48,7 @@ If today's current price (TCP) breaks into the delegation above it will trigger 
   pip install matplotlib
 ```
 
-4) Fill out the config.py in /CC with your Coinbase Pro API token information (KEY, SEC, and PHR)
+4) Rename "tmp-config.py" in /CC to "config.py" and fill it out with your Coinbase Pro API token information (KEY, SEC, and PHR)
 
 ```
 #API KEY DETAILS FOR CLIENT CONNECTION TO YOUR COINBASE PRO ACCOUNT
