@@ -5,6 +5,38 @@
 </div>
 <br>
 
+# How To Use CC Monitor
+In order to use this tool you must identify what coin and fiat you want to trade against and configure the tool accordingly. You must also understand what delegation level you desire and what trade volume you desire.
+
+Given you selected ADA as your coin and USD as your fiat.
+Given you selected $0.05 cents as your delegation level.
+Given you selected a trade volume of 20 ADA.
+
+This program bases the day's trades off of yesterday's starting price (YSP).
+Given a YSP of $1.00 USD / 1 ADA.
+
+This program will generate 10 delegations. 
+5 delegation levels above.
+5 delegation levels below.
+
+These delegations will be seperated in price by your provided delegation level based from the day's YSP.
+
+```
+DELEGATION10 => $1.25
+DELEGATION09 => $1.2
+DELEGATION08 => $1.15
+DELEGATION07 => $1.1
+DELEGATION06 => $1.05
+YSP          => $1.00
+DELEGATION05 => $0.95
+DELEGATION04 => $0.9
+DELEGATION03 => $0.85
+DELEGATION02 => $0.8
+DELEGATION01 => $0.75
+```
+
+If today's current price (TCP) breaks into the delegation above it will trigger a sell order and if it breaks into the delegation below it will trigger a buy order. Delegation 1 and 10 will trigger a full trade volume order. Delegation 2 and 9 will trigger a 4/5 trade volume order. Delegation 3 and 8 will trigger a 3/5 trade volume order. Delegation 4 and 7 will trigger a 2/5 trade volume order. Delegation 5 and 6 will trigger a 1/5 trade volume order.
+
 # Prerequisites
 1) Download and Install Git Bash Terminal (https://gitforwindows.org/)
 2) Download and Install Python (https://www.python.org/downloads/)
