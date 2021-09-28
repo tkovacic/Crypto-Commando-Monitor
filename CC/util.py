@@ -38,8 +38,8 @@ def printInterface(market, tv, dl, pp, cp, yp, ldl, lb, ls, tmpDelta, client):
     totalAdaHoldings = (float(tv) + ((4/5) * float(tv)) + ((3/5) * float(tv)) + ((2/5) * float(tv)) + ((1/5) * float(tv)) + ((1/10) * float(tv)));
     totalUsdHoldings = float(totalAdaHoldings) * float(cp);
 
-    print("Margins: " + str(totalAdaHoldings) + " " + str(market)[0:3] + " / " + str(round(float(totalUsdHoldings),2)) + " " + str(market)[4:] + " || Total: " + str(round(float(totalUsdHoldings),2)) + " " + str(market)[4:]);
-    print("Holding: " + str(round(float(client.get_account(config.COIN_ID)["balance"]),2)) + " " + str(market)[0:3] + " / " + str(round(float(client.get_account(config.FIAT_ID)["balance"]),2)) + " " + str(market)[4:] + " || Total: " + str((round(float(client.get_account(config.COIN_ID)["balance"]),2) * float(cp)) + round(float(client.get_account(config.FIAT_ID)["balance"]),2)) + " " + str(market)[4:]);
+    print("Margins: " + str(totalAdaHoldings) + " " + str(market)[0:3] + " / " + str(round(float(totalUsdHoldings),2)) + " " + str(market)[4:] + " || Total: " + str(round(float(totalUsdHoldings)*2,2)) + " " + str(market)[4:]);
+    print("Holding: " + str(round(float(client.get_account(config.COIN_ID)["balance"]),2)) + " " + str(market)[0:3] + " / " + str(round(float(client.get_account(config.FIAT_ID)["balance"]),2)) + " " + str(market)[4:] + " || Total: " + str(round((round(float(client.get_account(config.COIN_ID)["balance"]),2) * float(cp)) + round(float(client.get_account(config.FIAT_ID)["balance"]),2)),2) + " " + str(market)[4:]);
     print("");
 
     if(float(lb) == -9999999999):
