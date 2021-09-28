@@ -83,7 +83,7 @@ time.sleep(1);
 print("Starting...");
 time.sleep(10);
 plt.ion();
-plt.title("CC " + str(market)[0:3] + " Monitor [Calibrating...]");
+plt.title("CC " + str(market)[0:3] + " Monitor [YSP Delta: Calibrating...]");
 plt.xlabel(str(increment_pace) + " Second Intervals");
 plt.ylabel(str(market)[4:] + " Price per " + str(market)[0:3]);
 plt.show();
@@ -162,7 +162,7 @@ while True:
     plt.draw();
     plt.pause(0.0001);
     plt.clf();
-    plt.title("CC " + str(market)[0:3] + " Monitor [" + str(tmpDelta) + "%]");
+    plt.title("CC " + str(market)[0:3] + " Monitor [YSP Delta: " + str(tmpDelta) + "%]");
     plt.xlabel(str(increment_pace) + " Second Intervals");
     plt.ylabel(str(market)[4:] + " Price per " + str(market)[0:3]);
     plt.show();
