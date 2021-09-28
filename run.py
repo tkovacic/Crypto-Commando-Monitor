@@ -101,7 +101,7 @@ while True:
 
     cycle_count = cycle_count + 1;
     print(OKCYAN + str(market));
-	print("Crypto Commando Cycle: " + str(cycle_count));
+    print("Crypto Commando Cycle: " + str(cycle_count));
 
     client = cbpro.AuthenticatedClient(config.API_KEY,config.API_SEC,config.API_PHR);
 
