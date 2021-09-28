@@ -82,6 +82,7 @@ time.sleep(1);
 
 print("Starting...");
 time.sleep(10);
+
 plt.ion();
 plt.title("CC " + str(market)[0:3] + " Monitor [YSP Delta: Calibrating...]");
 plt.xlabel(str(increment_pace) + " Second Intervals");
@@ -99,7 +100,8 @@ while True:
     st = time.time();
 
     cycle_count = cycle_count + 1;
-    print(OKCYAN + str(market) + " Crypto Commando Cycle: " + str(cycle_count));
+    print(OKCYAN + str(market));
+	print("Crypto Commando Cycle: " + str(cycle_count));
 
     client = cbpro.AuthenticatedClient(config.API_KEY,config.API_SEC,config.API_PHR);
 
