@@ -22,17 +22,17 @@ This program will generate 10 delegations.
 These delegations will be seperated in price by your provided delegation level based from the day's YSP.
 
 ```
-DELEGATION10 => $1.25 => 5/5  trade volume order
-DELEGATION09 => $1.2  => 4/5  trade volume order
-DELEGATION08 => $1.15 => 3/5  trade volume order
-DELEGATION07 => $1.1  => 2/5  trade volume order
-DELEGATION06 => $1.05 => 1/5  trade volume order
-YSP          => $1.00 => 1/10 trade volume order
-DELEGATION05 => $0.95 => 1/5  trade volume order
-DELEGATION04 => $0.9  => 2/5  trade volume order
-DELEGATION03 => $0.85 => 3/5  trade volume order
-DELEGATION02 => $0.8  => 4/5  trade volume order
-DELEGATION01 => $0.75 => 5/5  trade volume order
+DELEGATION10 => $1.25 => 5/5  trade volume order => buy/sell 20 ADA
+DELEGATION09 => $1.2  => 4/5  trade volume order => buy/sell 16 ADA
+DELEGATION08 => $1.15 => 3/5  trade volume order => buy/sell 12 ADA
+DELEGATION07 => $1.1  => 2/5  trade volume order => buy/sell 8 ADA
+DELEGATION06 => $1.05 => 1/5  trade volume order => buy/sell 4 ADA
+YSP          => $1.00 => 1/10 trade volume order => buy/sell 2 ADA
+DELEGATION05 => $0.95 => 1/5  trade volume order => buy/sell 4 ADA
+DELEGATION04 => $0.9  => 2/5  trade volume order => buy/sell 8 ADA
+DELEGATION03 => $0.85 => 3/5  trade volume order => buy/sell 12 ADA
+DELEGATION02 => $0.8  => 4/5  trade volume order => buy/sell 16 ADA
+DELEGATION01 => $0.75 => 5/5  trade volume order => buy/sell 20 ADA
 ```
 
 If today's current price (TCP) breaks into the delegation above it will trigger a sell order and if it breaks into the delegation below it will trigger a buy order. Delegation 1 and 10 will trigger a full trade volume order. Delegation 2 and 9 will trigger a 4/5 trade volume order. Delegation 3 and 8 will trigger a 3/5 trade volume order. Delegation 4 and 7 will trigger a 2/5 trade volume order. Delegation 5 and 6 will trigger a 1/5 trade volume order.
