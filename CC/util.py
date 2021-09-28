@@ -26,18 +26,19 @@ WARN = '\033[93m';
 def printInterface(market, tv, dl, pp, cp, yp, ldl, lb, ls, tmpDelta, client):
     print(OKCYAN + "Yesterday's Starting Price (YSP): " + str(round(float(yp),3)) + " " + str(market)[4:]);
     print(OKCYAN + "Today's Delta (TD): " + str(tmpDelta) + "%");
-    print(OKCYAN + "Previous Delegation Level (PDL): " + str(ldl));
+    print(OKCYAN + "Current Delegation Level (CDL): " + str(ldl));
     print("");
     if(float(pp) > 0):
-        print(OKCYAN + "Today's Previous Price (TPP): " + str(round(float(pp),3)) + " " + str(market)[4:] + " / Today's Current Price (TCP): " + str(float(cp)) + " " + str(market)[4:]);
+        print(OKCYAN + "Today's Previous Price (TPP): " + str(round(float(pp),3)) + " " + str(market)[4:]);
+		print("Today's Current Price (TCP): " + str(float(cp)) + " " + str(market)[4:]);
     else:
         print(OKCYAN + "Calibrating...");
     print("");
 
-    totalAdaHoldings = (float(tv) + ((4/5) * float(tv)) + ((3/5) * float(tv)) + ((2/5) * float(tv)) + ((1/5) * float(tv)));
+    totalAdaHoldings = (float(tv) + ((4/5) * float(tv)) + ((3/5) * float(tv)) + ((2/5) * float(tv)) + ((1/5) * float(tv)) + ((1/10) * float(tv)));
     totalUsdHoldings = float(totalAdaHoldings) * float(cp);
 
-    print("Margins: " + str(totalAdaHoldings) + " " + str(market)[0:3] + " / " + str(round(float(totalUsdHoldings),2)) + " " + str(market)[4:] + " || Total: " + str(round(float(totalUsdHoldings) * 2,2)) + " " + str(market)[4:]);
+    print("Margins: " + str(totalAdaHoldings) + " " + str(market)[0:3]str(round(float(totalUsdHoldings),2)) + " " + str(market)[4:] + " || Total: " + str(round(float(totalUsdHoldings) * 2,2)) + " " + str(market)[4:]);
     print("Holding: " + str(round(float(client.get_account(config.COIN_ID)["balance"]),2)) + " " + str(market)[0:3] + " / " + str(round(float(client.get_account(config.FIAT_ID)["balance"]),2)) + " " + str(market)[4:] + " || Total: " + str((round(float(client.get_account(config.COIN_ID)["balance"]),2) * float(cp)) + round(float(client.get_account(config.FIAT_ID)["balance"]),2)) + " " + str(market)[4:]);
     print("");
 	
