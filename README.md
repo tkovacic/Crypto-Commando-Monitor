@@ -40,13 +40,13 @@ If today's current price (TCP) breaks into the delegation above it will trigger 
 If TCP breaks below Delegation Level 5 and crosses back up past the YSP it will trigger a sell order for 1/10 trade volume.
 If TCP breaks above Delegation level 6 and crosses back below past the YSP it will trigger a buy order for 1/10 trade volume.
 
-<img src="https://github.com/tkovacic/Crypto-Commando-Monitor/blob/main/readme1.PNG?raw=true">
+<img src="https://github.com/tkovacic/Crypto-Commando-Monitor/blob/main/readme.PNG?raw=true">
 </div>
 
 Your margins are the max coin and fiat you need on hand for that 24 hour period to account for possible max price jump or dump with a total in fiat to account for both.
 Your holdings are the current coin and fiat you have on hand in your Coinbase Pro account.
 
-<img src="https://github.com/tkovacic/Crypto-Commando-Monitor/blob/main/readme2.PNG?raw=true">
+<img src="https://github.com/tkovacic/Crypto-Commando-Monitor/blob/main/readme.PNG?raw=true">
 </div>
 
 # Prerequisites
