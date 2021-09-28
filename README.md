@@ -22,34 +22,20 @@ This program will generate 10 delegations.
 These delegations will be seperated in price by your provided delegation level based from the day's YSP.
 
 ```
-DELEGATION10 => $1.25
-DELEGATION09 => $1.2
-DELEGATION08 => $1.15
-DELEGATION07 => $1.1
-DELEGATION06 => $1.05
-YSP          => $1.00
-DELEGATION05 => $0.95
-DELEGATION04 => $0.9
-DELEGATION03 => $0.85
-DELEGATION02 => $0.8
-DELEGATION01 => $0.75
+DELEGATION10 => $1.25 => 5/5  trade volume order
+DELEGATION09 => $1.2  => 4/5  trade volume order
+DELEGATION08 => $1.15 => 3/5  trade volume order
+DELEGATION07 => $1.1  => 2/5  trade volume order
+DELEGATION06 => $1.05 => 1/5  trade volume order
+YSP          => $1.00 => 1/10 trade volume order
+DELEGATION05 => $0.95 => 1/5  trade volume order
+DELEGATION04 => $0.9  => 2/5  trade volume order
+DELEGATION03 => $0.85 => 3/5  trade volume order
+DELEGATION02 => $0.8  => 4/5  trade volume order
+DELEGATION01 => $0.75 => 5/5  trade volume order
 ```
 
 If today's current price (TCP) breaks into the delegation above it will trigger a sell order and if it breaks into the delegation below it will trigger a buy order. Delegation 1 and 10 will trigger a full trade volume order. Delegation 2 and 9 will trigger a 4/5 trade volume order. Delegation 3 and 8 will trigger a 3/5 trade volume order. Delegation 4 and 7 will trigger a 2/5 trade volume order. Delegation 5 and 6 will trigger a 1/5 trade volume order.
-
-```
-DELEGATION10 => $1.25 5/5 Trade Volume Order
-DELEGATION09 => $1.2  4/5 Trade Volume Order
-DELEGATION08 => $1.15 3/5 Trade Volume Order
-DELEGATION07 => $1.1  2/5 Trade Volume Order
-DELEGATION06 => $1.05 1/5 Trade Volume Order
-YSP          => $1.00 1/10 Trade Volume Order
-DELEGATION05 => $0.95 1/5 Trade Volume Order
-DELEGATION04 => $0.9  2/5 Trade Volume Order
-DELEGATION03 => $0.85 3/5 Trade Volume Order
-DELEGATION02 => $0.8  4/5 Trade Volume Order
-DELEGATION01 => $0.75 5/5 Trade Volume Order
-```
 
 If TCP breaks below Delegation Level 5 and crosses back up past the YSP it will trigger a sell order for 1/10 trade volume.
 If TCP breaks above Delegation level 6 and crosses back below past the YSP it will trigger a buy order for 1/10 trade volume.
