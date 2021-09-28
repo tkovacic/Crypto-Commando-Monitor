@@ -57,6 +57,9 @@ If TCP breaks above Delegation level 6 and crosses back below past the YSP it wi
 <img src="https://github.com/tkovacic/Crypto-Commando-Monitor/blob/main/readme1.PNG?raw=true">
 </div>
 
+Your margins are the max coin and fiat you need on hand for that 24 hour period to account for possible max price jump or dump with a total in fiat to account for both.
+Your holdings are the current coin and fiat you have on hand in your Coinbase Pro account.
+
 <img src="https://github.com/tkovacic/Crypto-Commando-Monitor/blob/main/readme2.PNG?raw=true">
 </div>
 
