@@ -40,8 +40,16 @@ def printInterface(market, tv, dl, pp, cp, yp, ldl, lb, ls, tmpDelta, client):
     print("Margins: " + str(totalAdaHoldings) + " " + str(market)[0:3] + " / " + str(round(float(totalUsdHoldings),2)) + " " + str(market)[4:] + " || Total: " + str(round(float(totalUsdHoldings) * 2,2)) + " " + str(market)[4:]);
     print("Holding: " + str(round(float(client.get_account(config.COIN_ID)["balance"]),2)) + " " + str(market)[0:3] + " / " + str(round(float(client.get_account(config.FIAT_ID)["balance"]),2)) + " " + str(market)[4:]);
     print("");
-    print("Last BO Price: " + str(lb) + " " + str(market)[4:]);
-    print("Last SO Price: " + str(ls) + " " + str(market)[4:]);
+	
+	if(float(lb) == -9999999999):
+		print("Last BO Price: N/A");
+	else:
+		print("Last BO Price: " + str(lb) + " " + str(market)[4:]);
+	
+	if(float(ls) == 9999999999):
+		print("Last SO Price: N/A");
+	else:
+		print("Last SO Price: " + str(ls) + " " + str(market)[4:]);
 
 def fetchCurrentQuote(market, client):
     bids = client.get_product_order_book(str(market));
