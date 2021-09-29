@@ -39,8 +39,11 @@ global increment_pace;
 increment_pace = float(config.SEC_INTERVAL);
 
 print("Keep Alive Interval: " + str(increment_pace) + " sec");
+print("Auto-Save Every " + str(config.SAVE_INTERVAL) + " Intervals");
 print("Max Charted Intervals: " + str(config.CHART_LENGTH));
 time.sleep(1);
+
+print("Loading Data...");
 
 global dl;
 dl = float(config.DELEGATION_LEVEL);
@@ -74,14 +77,20 @@ profits = 0.00;
 
 print("Delegation Levels: " + str(dl) + " " + str(market)[4:]);
 print("Trade Volume: " + str(tv) + " " + str(market)[0:3]);
-time.sleep(1);
+print("Retraction Rate: " + str(float(config.RETRACTION_RATE) * 100) + "%");
+
+cdaModeText = "INACTIVE";
+if(config.CDA_MODE >= 1):
+    cdaModeText = "ACTIVE";
+print("CDA MODE: " + cdaModeText);
+time.sleep(2);
 
 print("Selected Coin: " + str(market)[0:3]);
 print("Selected Fiat: " + str(market)[4:]);
 time.sleep(1);
 
 print("Starting...");
-time.sleep(10);
+time.sleep(15);
 
 plt.ion();
 plt.title("CC " + str(market)[0:3] + " Monitor [YSP Delta: Calibrating...]");
@@ -100,7 +109,7 @@ while True:
     st = time.time();
 
     cycle_count = cycle_count + 1;
-    print(OKCYAN + str(market));
+    print(OKCYAN + "Market: " + str(market));
     print("Interval: " + str(cycle_count));
     print("Runtime: " + str((float(cycle_count) * float(increment_pace))) + " Seconds");
 
@@ -176,5 +185,10 @@ while True:
     plt.show();
 
     printInterface(market, tv, dl, pp, cp, yp, ldl, lb, ls, profits, tmpDelta, client);
+
+    if(float(autoSave) >= float(config.SAVE_INTERVAL)):
+        autoSave = 0;
+    else:
+        autoSave = autoSave + 1;
 
     time.sleep(increment_pace - ((time.time() - st) % increment_pace));
