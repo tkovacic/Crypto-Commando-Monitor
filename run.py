@@ -108,8 +108,12 @@ while True:
 
     pp = cp;
     cp = fetchCurrentQuote(market, client);
+    pyp = float(yp);
     yp = fetchYesterdayQuote(market, client);
     delegationLevels = calculateDelegationLevels(dl, yp);
+
+    if(float(pyp) != float(yp)):
+        ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
 
     yData.append(float(cp));
 
