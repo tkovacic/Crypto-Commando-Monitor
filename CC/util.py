@@ -52,7 +52,7 @@ def printInterface(market, tv, dl, pp, cp, yp, ldl, lb, ls, profits, tmpDelta, c
     else:
         print("Last SO Price: " + str(ls) + " " + str(market)[4:]);
 
-    print("Profits: " + profits + str(market)[4:]);
+    print("Profits: " + str(profits) + str(market)[4:]);
 
 def fetchCurrentQuote(market, client):
     bids = client.get_product_order_book(str(market));
