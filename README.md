@@ -70,7 +70,7 @@ API_SEC
 API_PHR
 ```
 
-5) Fill out the config.py in /CC with your desired Coinbase Market Pair and the Account ID for your selected Coin and Fiat
+5) Fill out the config.py in /CC with your desired Coinbase Market Pair and the Account ID for your selected Coin and Fiat (In order to find these ID's you must use Coinbase Pro's API endpoint called "Accounts" to find the specific ID's for the Coin you want and the Fiat you want https://docs.pro.coinbase.com/#accounts)
 
 ```
 #FIAT BASED COIN-PAIR FROM COINBASE PRO LISTINGS (ALWAYS IN [COIN]-[FIAT] FORMAT Ex: ADA-USD)
