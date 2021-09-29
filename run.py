@@ -67,6 +67,8 @@ global d;
 d = 0.0;
 global market;
 market = str(config.MARKET);
+global autoSave;
+autoSave = 0;
 
 global purchases;
 purchases = [];
