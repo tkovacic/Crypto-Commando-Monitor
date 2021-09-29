@@ -326,12 +326,13 @@ def evaluateDelegationLevelCrossing(market, dll, ldl, yp, cp, tv, lb, ls, purcha
         elif(float(cp) >= float(pd5)):
             ldl = 10.0;
 
-    output = [0.0,0.0,0.0,[],[]];
+    output = [0.0,0.0,0.0,[],[],0.0];
     output[0] = ldl;
     output[1] = lb;
     output[2] = ls;
     output[3] = purchases;
     output[4] = sales;
+    output[5] = profits;
 
     return output;
 
