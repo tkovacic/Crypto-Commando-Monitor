@@ -39,6 +39,7 @@ global increment_pace;
 increment_pace = float(config.SEC_INTERVAL);
 
 print("Keep Alive Interval: " + str(increment_pace) + " sec");
+print("Max Charted Intervals: " + str(config.CHART_LENGTH));
 time.sleep(1);
 
 global dl;
@@ -75,9 +76,6 @@ time.sleep(1);
 
 print("Selected Coin: " + str(market)[0:3]);
 print("Selected Fiat: " + str(market)[4:]);
-time.sleep(1);
-
-print("Max Charted Intervals: " + str(config.CHART_LENGTH));
 time.sleep(1);
 
 print("Starting...");
@@ -121,12 +119,13 @@ while True:
         ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
     tmpLdl = ldl;
 
-    metaData = evaluateDelegationLevelCrossing(market, delegationLevels, ldl, yp, cp, tv, lb, ls, purchases, sales, client);
+    metaData = evaluateDelegationLevelCrossing(market, delegationLevels, ldl, yp, cp, tv, lb, ls, purchases, sales, profits, client);
     ldl = metaData[0];
     lb = metaData[1];
     ls = metaData[2];
     purchases = metaData[3];
     sales = metaData[4];
+    profits = metaData[5];
 
     if(float(tmpLdl) != float(ldl)):
         print("LDL Transitioned from: " + str(float(tmpLdl)) + " to: " + str(float(ldl)));
@@ -174,6 +173,6 @@ while True:
     plt.ylabel(str(market)[4:] + " Price per " + str(market)[0:3]);
     plt.show();
 
-    printInterface(market, tv, dl, pp, cp, yp, ldl, lb, ls, tmpDelta, client);
+    printInterface(market, tv, dl, pp, cp, yp, ldl, lb, ls, profits, tmpDelta, client);
 
     time.sleep(increment_pace - ((time.time() - st) % increment_pace));
