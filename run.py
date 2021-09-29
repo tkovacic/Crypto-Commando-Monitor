@@ -69,6 +69,8 @@ global purchases;
 purchases = [];
 global sales;
 sales = [];
+global profits;
+profits = 0.00;
 
 print("Delegation Levels: " + str(dl) + " " + str(market)[4:]);
 print("Trade Volume: " + str(tv) + " " + str(market)[0:3]);
