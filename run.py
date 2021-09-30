@@ -195,6 +195,16 @@ while True:
         elif(float(pyp) != float(yp)):
             ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
 
+        if(float(config.R_MODE) >= 1):
+            if(ldl <= 0):
+                yp = delegationLevels[5];
+                delegationLevels = calculateDelegationLevels(dl, yp);
+                ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
+            elif(ldl >= 10):
+                yp = delegationLevels[4];
+                delegationLevels = calculateDelegationLevels(dl, yp);
+                ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
+
         tmpLdl = ldl;
         if(float(tmpLdl) != float(ldl)):
             print("LDL Transitioned from: " + str(float(tmpLdl)) + " to: " + str(float(ldl)));
@@ -215,16 +225,6 @@ while True:
         if(float(config.DC_MODE) >= 1.0):
             if(ldl <= 0 or ldl >= 10):
                 yp = float(cp);
-                delegationLevels = calculateDelegationLevels(dl, yp);
-                ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
-
-        if(float(config.R_MODE) >= 1):
-            if(ldl <= 0):
-                yp = delegationLevels[5];
-                delegationLevels = calculateDelegationLevels(dl, yp);
-                ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
-            elif(ldl >= 10):
-                yp = delegationLevels[4];
                 delegationLevels = calculateDelegationLevels(dl, yp);
                 ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
 
