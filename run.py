@@ -133,21 +133,29 @@ while True:
     else:
         dcpCounter = dcpCounter + 1;
         if(float(yp) == -1.0):
-            yp = cp;
+            yp = float(cp);
         else:
             if(float(dcpCounter) >= float(config.DCP_INTERVAL)):
-                yp = cp;
+                yp = float(cp);
                 dcpCounter = 0;
     delegationLevels = calculateDelegationLevels(dl, yp);
 
-    if(float(pyp) != float(yp)):
+    if(ldl <= -1.0):
         ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
+    elif(float(pyp) != float(yp)):
+        ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
+
+    tmpLdl = ldl;
+    if(float(tmpLdl) != float(ldl)):
+        print("LDL Transitioned from: " + str(float(tmpLdl)) + " to: " + str(float(ldl)));
+
+    if(float(config.DC_MODE) >= 1.0):
+        if(ldl <= 0 or ldl >= 10):
+            yp = float(cp);
+            delegationLevels = calculateDelegationLevels(dl, yp);
+            ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
 
     yData.append(float(cp));
-
-    if(ldl < 0):
-        ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
-    tmpLdl = ldl;
 
     metaData = evaluateDelegationLevelCrossing(market, delegationLevels, ldl, yp, cp, tv, lb, ls, purchases, sales, profits, coin, client);
     ldl = metaData[0];
@@ -157,9 +165,6 @@ while True:
     sales = metaData[4];
     profits = metaData[5];
     coin = metaData[6];
-
-    if(float(tmpLdl) != float(ldl)):
-        print("LDL Transitioned from: " + str(float(tmpLdl)) + " to: " + str(float(ldl)));
 
     tmpDelta = round((((float(cp) - float(yp)) / float(cp)) * 100),2);
 
