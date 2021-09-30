@@ -144,7 +144,10 @@ print("Starting...");
 time.sleep(15);
 
 plt.ion();
-plt.title("CC " + marketCoin + " Monitor [YSP Delta: Calibrating...]");
+if(float(config.DC_MODE) >= 1.0):
+    plt.title("CC " + marketCoin + " Monitor [DSP Delta: Calibrating...]");
+else:
+    plt.title("CC " + marketCoin + " Monitor [YSP Delta: Calibrating...]");
 plt.xlabel(str(increment_pace) + " Second Intervals");
 plt.ylabel(marketFiat + " Price per " + marketCoin);
 plt.show();
@@ -245,7 +248,10 @@ while True:
     plt.draw();
     plt.pause(0.0001);
     plt.clf();
-    plt.title("CC " + marketCoin + " Monitor [YSP Delta: " + str(tmpDelta) + "%]");
+    if(float(config.DC_MODE) >= 1.0):
+        plt.title("CC " + marketCoin + " Monitor [DSP Delta: " + str(tmpDelta) + "%]");
+    else:
+        plt.title("CC " + marketCoin + " Monitor [YSP Delta: " + str(tmpDelta) + "%]");
     plt.xlabel(str(increment_pace) + " Second Intervals");
     plt.ylabel(marketFiat + " Price per " + marketCoin);
     plt.show();
