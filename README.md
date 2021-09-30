@@ -43,6 +43,10 @@ If today's current price (TCP) breaks into the delegation above it will trigger 
 If TCP breaks below Delegation Level 5 and crosses back up past the YSP it will trigger a sell order for 1/10 trade volume.
 If TCP breaks above Delegation level 6 and crosses back below past the YSP it will trigger a buy order for 1/10 trade volume.
 
+If DCA Mode is enabled then the program will never sell.
+If DC Mode is enabled then the program will reset the YSP to the CP when DSP triggers.
+If R Mode is enabled then the program will shift the YSP up or down depending on if the CP hits max or min delegation level.
+
 <img src="https://github.com/tkovacic/Crypto-Commando-Monitor/blob/main/readme1.PNG?raw=true">
 
 Your margins are the max coin and fiat you need on hand for that 24 hour period to account for possible max price jump or dump with a total in fiat to account for both.
