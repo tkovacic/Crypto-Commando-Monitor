@@ -163,127 +163,130 @@ udData = [];
 ldData = [];
 
 while True:
-    os.system('cls');
-    st = time.time();
+    try:
+        os.system('cls');
+        st = time.time();
 
-    cycle_count = cycle_count + 1;
-    print(OKCYAN + "Market: " + str(market));
-    print("Interval: " + str(cycle_count));
-    print("Runtime: " + str(round(((float(cycle_count) * float(increment_pace)) / 3600),2)) + " Hours");
+        cycle_count = cycle_count + 1;
+        print(OKCYAN + "Market: " + str(market));
+        print("Interval: " + str(cycle_count));
+        print("Runtime: " + str(round(((float(cycle_count) * float(increment_pace)) / 3600),2)) + " Hours");
 
-    client = cbpro.AuthenticatedClient(config.API_KEY,config.API_SEC,config.API_PHR);
+        client = cbpro.AuthenticatedClient(config.API_KEY,config.API_SEC,config.API_PHR);
 
-    pp = cp;
-    cp = fetchCurrentQuote(market, client);
-    pyp = float(yp);
-    if(float(config.DC_MODE) <= 0.0):
-        yp = fetchYesterdayQuote(market, client);
-    else:
-        dcpCounter = dcpCounter + 1;
-        if(float(yp) == -1.0):
-            yp = float(cp);
+        pp = cp;
+        cp = fetchCurrentQuote(market, client);
+        pyp = float(yp);
+        if(float(config.DC_MODE) <= 0.0):
+            yp = fetchYesterdayQuote(market, client);
         else:
-            if(float(dcpCounter) >= float(config.DCP_INTERVAL)):
+            dcpCounter = dcpCounter + 1;
+            if(float(yp) == -1.0):
                 yp = float(cp);
-                dcpCounter = 0;
+            else:
+                if(float(dcpCounter) >= float(config.DCP_INTERVAL)):
+                    yp = float(cp);
+                    dcpCounter = 0;
 
-    delegationLevels = calculateDelegationLevels(dl, yp);
+        delegationLevels = calculateDelegationLevels(dl, yp);
 
-    if(ldl <= -1.0):
-        ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
-    elif(float(pyp) != float(yp)):
-        ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
-
-    tmpLdl = ldl;
-    if(float(tmpLdl) != float(ldl)):
-        print("LDL Transitioned from: " + str(float(tmpLdl)) + " to: " + str(float(ldl)));
-
-    yData.append(float(cp));
-
-    metaData = evaluateDelegationLevelCrossing(market,  marketCoin, marketFiat, delegationLevels, ldl, yp, cp, tv, lb, ls, purchases, sales, profits, coin, client);
-    ldl = metaData[0];
-    lb = metaData[1];
-    ls = metaData[2];
-    purchases = metaData[3];
-    sales = metaData[4];
-    profits = metaData[5];
-    coin = metaData[6];
-
-    tmpDelta = round((((float(cp) - float(yp)) / float(cp)) * 100),2);
-
-    if(float(config.DC_MODE) >= 1.0):
-        if(ldl <= 0 or ldl >= 10):
-            yp = float(cp);
-            delegationLevels = calculateDelegationLevels(dl, yp);
+        if(ldl <= -1.0):
+            ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
+        elif(float(pyp) != float(yp)):
             ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
 
-    if(float(config.R_MODE) >= 1):
-        if(ldl <= 0):
-            yp = delegationLevels[5];
-            delegationLevels = calculateDelegationLevels(dl, yp);
-            ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
-        elif(ldl >= 10):
-            yp = delegationLevels[4];
-            delegationLevels = calculateDelegationLevels(dl, yp);
-            ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
+        tmpLdl = ldl;
+        if(float(tmpLdl) != float(ldl)):
+            print("LDL Transitioned from: " + str(float(tmpLdl)) + " to: " + str(float(ldl)));
 
-    ypData.append(float(yp));
-    if(len(purchases) > 0):
-        pData.append(purchases[-1]);
-    else:
-        pData.append(yData[-1]);
-    if(len(sales) > 0):
-        sData.append(sales[-1]);
-    else:
-        sData.append(yData[-1]);
+        yData.append(float(cp));
 
-    upperDelegation = obtainUpperDelegation(ldl, yp, delegationLevels);
-    lowerDelegation = obtainLowerDelegation(ldl, yp, delegationLevels);
+        metaData = evaluateDelegationLevelCrossing(market,  marketCoin, marketFiat, delegationLevels, ldl, yp, cp, tv, lb, ls, purchases, sales, profits, coin, client);
+        ldl = metaData[0];
+        lb = metaData[1];
+        ls = metaData[2];
+        purchases = metaData[3];
+        sales = metaData[4];
+        profits = metaData[5];
+        coin = metaData[6];
 
-    udData.append(float(upperDelegation));
-    ldData.append(float(lowerDelegation));
+        tmpDelta = round((((float(cp) - float(yp)) / float(cp)) * 100),2);
 
-    chartLength = float(-1 * float(config.CHART_LENGTH));
+        if(float(config.DC_MODE) >= 1.0):
+            if(ldl <= 0 or ldl >= 10):
+                yp = float(cp);
+                delegationLevels = calculateDelegationLevels(dl, yp);
+                ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
 
-    pData = pData[int(chartLength):];
-    sData = sData[int(chartLength):];
-    udData = udData[int(chartLength):];
-    ypData = ypData[int(chartLength):];
-    ldData = ldData[int(chartLength):];
-    yData = yData[int(chartLength):];
+        if(float(config.R_MODE) >= 1):
+            if(ldl <= 0):
+                yp = delegationLevels[5];
+                delegationLevels = calculateDelegationLevels(dl, yp);
+                ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
+            elif(ldl >= 10):
+                yp = delegationLevels[4];
+                delegationLevels = calculateDelegationLevels(dl, yp);
+                ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
 
-    plt.plot(pData,c='r', ls=':', label="BO");
-    plt.plot(sData,c='g', ls=':', label="SO");
-    plt.plot(udData,c='y', ls='dashed', label="UDL");
-    if(float(config.DC_MODE) >= 1.0):
-        plt.plot(ypData,c='k', ls='dashed', label="DSP");
-    else:
-        plt.plot(ypData,c='k', ls='dashed', label="YSP");
-    plt.plot(ldData,c='m', ls='dashed', label="LDL");
-    plt.plot(yData,c='b', label="TCP");
+        ypData.append(float(yp));
+        if(len(purchases) > 0):
+            pData.append(purchases[-1]);
+        else:
+            pData.append(yData[-1]);
+        if(len(sales) > 0):
+            sData.append(sales[-1]);
+        else:
+            sData.append(yData[-1]);
 
-    plt.legend();
-    plt.draw();
-    plt.pause(0.0001);
-    plt.clf();
-    if(float(config.DC_MODE) >= 1.0):
-        plt.title("CC " + marketCoin + " Monitor [DSP Delta: " + str(tmpDelta) + "%]");
-    else:
-        plt.title("CC " + marketCoin + " Monitor [YSP Delta: " + str(tmpDelta) + "%]");
-    plt.xlabel(str(increment_pace) + " Second Intervals");
-    plt.ylabel(marketFiat + " Price per " + marketCoin);
-    plt.show();
+        upperDelegation = obtainUpperDelegation(ldl, yp, delegationLevels);
+        lowerDelegation = obtainLowerDelegation(ldl, yp, delegationLevels);
 
-    printInterface(market, marketCoin, marketFiat, tv, dl, pp, cp, yp, ldl, lb, ls, profits, coin, tmpDelta, client);
+        udData.append(float(upperDelegation));
+        ldData.append(float(lowerDelegation));
 
-    if(float(autoSave) >= float(config.SAVE_INTERVAL)):
-        autoSave = 0;
-        dataOutput = str(lb) + "," + str(ls) + "," + str(profits) + "," + str(coin);
-        with open('data.txt', 'w') as f:
-            f.write(dataOutput);
-            f.close();
-        print("AUTO-SAVE TRIGGERED!");
-    else:
-        autoSave = autoSave + 1;
+        chartLength = float(-1 * float(config.CHART_LENGTH));
 
-    time.sleep(increment_pace - ((time.time() - st) % increment_pace));
+        pData = pData[int(chartLength):];
+        sData = sData[int(chartLength):];
+        udData = udData[int(chartLength):];
+        ypData = ypData[int(chartLength):];
+        ldData = ldData[int(chartLength):];
+        yData = yData[int(chartLength):];
+
+        plt.plot(pData,c='r', ls=':', label="BO");
+        plt.plot(sData,c='g', ls=':', label="SO");
+        plt.plot(udData,c='y', ls='dashed', label="UDL");
+        if(float(config.DC_MODE) >= 1.0):
+            plt.plot(ypData,c='k', ls='dashed', label="DSP");
+        else:
+            plt.plot(ypData,c='k', ls='dashed', label="YSP");
+        plt.plot(ldData,c='m', ls='dashed', label="LDL");
+        plt.plot(yData,c='b', label="TCP");
+
+        plt.legend();
+        plt.draw();
+        plt.pause(0.0001);
+        plt.clf();
+        if(float(config.DC_MODE) >= 1.0):
+            plt.title("CC " + marketCoin + " Monitor [DSP Delta: " + str(tmpDelta) + "%]");
+        else:
+            plt.title("CC " + marketCoin + " Monitor [YSP Delta: " + str(tmpDelta) + "%]");
+        plt.xlabel(str(increment_pace) + " Second Intervals");
+        plt.ylabel(marketFiat + " Price per " + marketCoin);
+        plt.show();
+
+        printInterface(market, marketCoin, marketFiat, tv, dl, pp, cp, yp, ldl, lb, ls, profits, coin, tmpDelta, client);
+
+        if(float(autoSave) >= float(config.SAVE_INTERVAL)):
+            autoSave = 0;
+            dataOutput = str(lb) + "," + str(ls) + "," + str(profits) + "," + str(coin);
+            with open('data.txt', 'w') as f:
+                f.write(dataOutput);
+                f.close();
+            print("AUTO-SAVE TRIGGERED!");
+        else:
+            autoSave = autoSave + 1;
+
+        time.sleep(increment_pace - ((time.time() - st) % increment_pace));
+    except Exception as e:
+        logging.error('Caught exception: ' + str(e));
