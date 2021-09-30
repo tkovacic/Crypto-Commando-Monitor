@@ -132,6 +132,10 @@ dcmModeText = "INACTIVE";
 if(config.DC_MODE >= 1):
     dcmModeText = "ACTIVE";
 print("DC MODE: " + dcmModeText);
+rModeText = "INACTIVE";
+if(config.R_MODE >= 1):
+    rModeText = "ACTIVE";
+print("R MODE: " + rModeText);
 print("");
 time.sleep(2);
 
@@ -182,6 +186,7 @@ while True:
             if(float(dcpCounter) >= float(config.DCP_INTERVAL)):
                 yp = float(cp);
                 dcpCounter = 0;
+
     delegationLevels = calculateDelegationLevels(dl, yp);
 
     if(ldl <= -1.0):
@@ -196,6 +201,16 @@ while True:
     if(float(config.DC_MODE) >= 1.0):
         if(ldl <= 0 or ldl >= 10):
             yp = float(cp);
+            delegationLevels = calculateDelegationLevels(dl, yp);
+            ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
+
+    if(float(config.R_MODE) >= 1):
+        if(ldl <= 0):
+            yp = delegationLevels[5];
+            delegationLevels = calculateDelegationLevels(dl, yp);
+            ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
+        elif(ldl >= 10):
+            yp = delegationLevels[4];
             delegationLevels = calculateDelegationLevels(dl, yp);
             ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
 
