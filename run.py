@@ -35,6 +35,8 @@ global st;
 st = time.time();
 global cycle_count;
 cycle_count = 0;
+global dcpCounter;
+dcpCounter = 0;
 global increment_pace;
 increment_pace = float(config.SEC_INTERVAL);
 
@@ -87,6 +89,10 @@ cdaModeText = "INACTIVE";
 if(config.CDA_MODE >= 1):
     cdaModeText = "ACTIVE";
 print("CDA MODE: " + cdaModeText);
+dcmModeText = "INACTIVE";
+if(config.DC_MODE >= 1):
+    dcmModeText = "ACTIVE";
+print("DC MODE: " + dcmModeText);
 time.sleep(2);
 
 print("Selected Coin: " + str(market)[0:3]);
@@ -122,7 +128,16 @@ while True:
     pp = cp;
     cp = fetchCurrentQuote(market, client);
     pyp = float(yp);
-    yp = fetchYesterdayQuote(market, client);
+    if(float(config.DC_MODE) <= 0.0):
+        yp = fetchYesterdayQuote(market, client);
+    else:
+        dcpCounter = dcpCounter + 1;
+        if(float(yp) == -1.0):
+            yp = cp;
+        else:
+            if(float(dcpCounter) >= float(config.DCP_INTERVAL)):
+                yp = cp;
+                dcpCounter = 0;
     delegationLevels = calculateDelegationLevels(dl, yp);
 
     if(float(pyp) != float(yp)):
