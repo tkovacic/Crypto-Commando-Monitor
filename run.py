@@ -198,6 +198,19 @@ while True:
     if(float(tmpLdl) != float(ldl)):
         print("LDL Transitioned from: " + str(float(tmpLdl)) + " to: " + str(float(ldl)));
 
+    yData.append(float(cp));
+
+    metaData = evaluateDelegationLevelCrossing(market,  marketCoin, marketFiat, delegationLevels, ldl, yp, cp, tv, lb, ls, purchases, sales, profits, coin, client);
+    ldl = metaData[0];
+    lb = metaData[1];
+    ls = metaData[2];
+    purchases = metaData[3];
+    sales = metaData[4];
+    profits = metaData[5];
+    coin = metaData[6];
+
+    tmpDelta = round((((float(cp) - float(yp)) / float(cp)) * 100),2);
+
     if(float(config.DC_MODE) >= 1.0):
         if(ldl <= 0 or ldl >= 10):
             yp = float(cp);
@@ -213,19 +226,6 @@ while True:
             yp = delegationLevels[4];
             delegationLevels = calculateDelegationLevels(dl, yp);
             ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
-
-    yData.append(float(cp));
-
-    metaData = evaluateDelegationLevelCrossing(market,  marketCoin, marketFiat, delegationLevels, ldl, yp, cp, tv, lb, ls, purchases, sales, profits, coin, client);
-    ldl = metaData[0];
-    lb = metaData[1];
-    ls = metaData[2];
-    purchases = metaData[3];
-    sales = metaData[4];
-    profits = metaData[5];
-    coin = metaData[6];
-
-    tmpDelta = round((((float(cp) - float(yp)) / float(cp)) * 100),2);
 
     ypData.append(float(yp));
     if(len(purchases) > 0):
