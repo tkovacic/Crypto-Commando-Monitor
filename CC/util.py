@@ -54,8 +54,9 @@ def printInterface(market, tv, dl, pp, cp, yp, ldl, lb, ls, profits, coin, tmpDe
 
     coinProfits = float(coin) * float(cp);
     print("");
-    print("Sale Profits: " + str(profits) + " " + str(market)[4:] + " || Purchase Profits: " + str(coin) + " " + str(market)[0:3] + " / " + str(coinProfits) + " " + str(market)[4:]);
-    print("Total Profits: " + str(float(profits) + float(coinProfits)) + " " + str(market)[4:]);
+    print("Sale Profits: " + str(round(profits,3)) + " " + str(market)[4:]);
+    print("Purchase Profits: " + str(round(coin,3)) + " " + str(market)[0:3] + " / " + str(round(coinProfits,3)) + " " + str(market)[4:]);
+    print("Total Profits: " + str(round(float(profits) + float(coinProfits),3)) + " " + str(market)[4:]);
 
 def fetchCurrentQuote(market, client):
     bids = client.get_product_order_book(str(market));
