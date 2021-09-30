@@ -54,6 +54,7 @@ Your holdings are the current coin and fiat you have on hand in your Coinbase Pr
 
 <img src="https://github.com/tkovacic/Crypto-Commando-Monitor/blob/main/readme2.PNG?raw=true">
 <img src="https://github.com/tkovacic/Crypto-Commando-Monitor/blob/main/readme3.PNG?raw=true">
+<img src="https://github.com/tkovacic/Crypto-Commando-Monitor/blob/main/readme4.PNG?raw=true">
 
 # Prerequisites
 1) Register an account on Coinbase Pro (https://pro.coinbase.com/)
