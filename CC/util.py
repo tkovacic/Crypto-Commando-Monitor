@@ -23,7 +23,7 @@ FAIL = '\033[91m';
 global WARN;
 WARN = '\033[93m';
 
-def printInterface(market, tv, dl, pp, cp, yp, ldl, lb, ls, profits, tmpDelta, client):
+def printInterface(market, tv, dl, pp, cp, yp, ldl, lb, ls, profits, coin, tmpDelta, client):
     print(OKCYAN + "Yesterday's Starting Price (YSP): " + str(round(float(yp),3)) + " " + str(market)[4:]);
     print(OKCYAN + "Today's Delta (TD): " + str(tmpDelta) + "%");
     print(OKCYAN + "Current Delegation Level (CDL): " + str(ldl));
@@ -53,7 +53,7 @@ def printInterface(market, tv, dl, pp, cp, yp, ldl, lb, ls, profits, tmpDelta, c
         print("Last SO Price: " + str(ls) + " " + str(market)[4:]);
 
     print("");
-    print("Profits: " + str(profits) + " " + str(market)[4:]);
+    print("Profits: " + str(profits) + " " + str(market)[4:] + " || " + str(coin) + " " + str(market)[0:3] + " / " + str(float(coin) * float(cp)) + " " + str(market)[4:]);
 
 def fetchCurrentQuote(market, client):
     bids = client.get_product_order_book(str(market));
@@ -156,7 +156,7 @@ def calculateDelegationLevels(dl, yp):
 
     return output;
 
-def evaluateDelegationLevelCrossing(market, dll, ldl, yp, cp, tv, lb, ls, purchases, sales, profits, client):
+def evaluateDelegationLevelCrossing(market, dll, ldl, yp, cp, tv, lb, ls, purchases, sales, profits, coin, client):
     pd1 = float(dll[0]);
     pd2 = float(dll[1]);
     pd3 = float(dll[2]);
@@ -178,6 +178,7 @@ def evaluateDelegationLevelCrossing(market, dll, ldl, yp, cp, tv, lb, ls, purcha
             v = v * float(config.RETRACTION_RATE);
             print("Ordered to Sell " + str(v) + " " + str(market)[0:3]);
             profits = profits + (float(v) * float(cp));
+            coin = coin - float(v);
             ls = placeSellOrder(market,client, v, cp, lb, ls);
             sales.append(float(cp));
         elif(float(cp) <= float(nd5)):
@@ -189,6 +190,7 @@ def evaluateDelegationLevelCrossing(market, dll, ldl, yp, cp, tv, lb, ls, purcha
             v = v * float(config.RETRACTION_RATE);
             print("Ordered to Sell " + str(v) + " " + str(market)[0:3]);
             profits = profits + (float(v) * float(cp));
+            coin = coin - float(v);
             ls = placeSellOrder(market,client, v, cp, lb, ls);
             sales.append(float(cp));
         elif(float(cp) <= float(nd5)):
@@ -196,6 +198,7 @@ def evaluateDelegationLevelCrossing(market, dll, ldl, yp, cp, tv, lb, ls, purcha
             v = calculateDelegationTradeVolume(float(ldl),float(tv));
             print("Ordered to Purchase " + str(v) + " " + str(market)[0:3]);
             profits = profits - (float(v) * float(cp));
+            coin = coin + float(v);
             lb = placeBuyOrder(market,client, v, cp, lb, ls);
             purchases.append(float(cp));
     elif(float(ldl) == 2.0):
@@ -205,6 +208,7 @@ def evaluateDelegationLevelCrossing(market, dll, ldl, yp, cp, tv, lb, ls, purcha
             v = v * float(config.RETRACTION_RATE);
             print("Ordered to Sell " + str(v) + " " + str(market)[0:3]);
             profits = profits + (float(v) * float(cp));
+            coin = coin - float(v);
             ls = placeSellOrder(market,client, v, cp, lb, ls);
             sales.append(float(cp));
         elif(float(cp) <= float(nd4)):
@@ -212,6 +216,7 @@ def evaluateDelegationLevelCrossing(market, dll, ldl, yp, cp, tv, lb, ls, purcha
             v = calculateDelegationTradeVolume(float(ldl),float(tv));
             print("Ordered to Purchase " + str(v) + " " + str(market)[0:3]);
             profits = profits - (float(v) * float(cp));
+            coin = coin + float(v);
             lb = placeBuyOrder(market,client, v, cp, lb, ls);
             purchases.append(float(cp));
     elif(float(ldl) == 3.0):
@@ -221,6 +226,7 @@ def evaluateDelegationLevelCrossing(market, dll, ldl, yp, cp, tv, lb, ls, purcha
             v = v * float(config.RETRACTION_RATE);
             print("Ordered to Sell " + str(v) + " " + str(market)[0:3]);
             profits = profits + (float(v) * float(cp));
+            coin = coin - float(v);
             ls = placeSellOrder(market,client, v, cp, lb, ls);
             sales.append(float(cp));
         elif(float(cp) <= float(nd3)):
@@ -228,6 +234,7 @@ def evaluateDelegationLevelCrossing(market, dll, ldl, yp, cp, tv, lb, ls, purcha
             v = calculateDelegationTradeVolume(float(ldl),float(tv));
             print("Ordered to Purchase " + str(v) + " " + str(market)[0:3]);
             profits = profits - (float(v) * float(cp));
+            coin = coin + float(v);
             lb = placeBuyOrder(market,client, v, cp, lb, ls);
             purchases.append(float(cp));
     elif(float(ldl) == 4.0):
@@ -237,6 +244,7 @@ def evaluateDelegationLevelCrossing(market, dll, ldl, yp, cp, tv, lb, ls, purcha
             v = v * float(config.RETRACTION_RATE);
             print("Ordered to Sell " + str(v) + " " + str(market)[0:3]);
             profits = profits + (float(v) * float(cp));
+            coin = coin - float(v);
             ls = placeSellOrder(market,client, v, cp, lb, ls);
             sales.append(float(cp));
         elif(float(cp) <= float(nd2)):
@@ -244,6 +252,7 @@ def evaluateDelegationLevelCrossing(market, dll, ldl, yp, cp, tv, lb, ls, purcha
             v = calculateDelegationTradeVolume(float(ldl),float(tv));
             print("Ordered to Purchase " + str(v) + " " + str(market)[0:3]);
             profits = profits - (float(v) * float(cp));
+            coin = coin + float(v);
             lb = placeBuyOrder(market,client, v, cp, lb, ls);
             purchases.append(float(cp));
     elif(float(ldl) == 5.0):
@@ -252,6 +261,7 @@ def evaluateDelegationLevelCrossing(market, dll, ldl, yp, cp, tv, lb, ls, purcha
             v = calculateDelegationTradeVolume(float(ldl),float(tv));
             print("Ordered to Purchase " + str(v) + " " + str(market)[0:3]);
             profits = profits - (float(v) * float(cp));
+            coin = coin + float(v);
             lb = placeBuyOrder(market,client, v, cp, lb, ls);
             purchases.append(float(cp));
         elif(float(cp) >= float(pd1) and float(config.CDA_MODE) <= 0):
@@ -260,6 +270,7 @@ def evaluateDelegationLevelCrossing(market, dll, ldl, yp, cp, tv, lb, ls, purcha
             v = v * float(config.RETRACTION_RATE);
             print("Ordered to Sell " + str(v) + " " + str(market)[0:3]);
             profits = profits + (float(v) * float(cp));
+            coin = coin - float(v);
             ls = placeSellOrder(market,client, v, cp, lb, ls);
             sales.append(float(cp));
     elif(float(ldl) == 6.0):
@@ -268,6 +279,7 @@ def evaluateDelegationLevelCrossing(market, dll, ldl, yp, cp, tv, lb, ls, purcha
             v = calculateDelegationTradeVolume(float(ldl),float(tv));
             print("Ordered to Purchase " + str(v) + " " + str(market)[0:3]);
             profits = profits - (float(v) * float(cp));
+            coin = coin + float(v);
             lb = placeBuyOrder(market,client, v, cp, lb, ls);
             purchases.append(float(cp));
         elif(float(cp) >= float(pd2) and float(config.CDA_MODE) <= 0):
@@ -276,6 +288,7 @@ def evaluateDelegationLevelCrossing(market, dll, ldl, yp, cp, tv, lb, ls, purcha
             v = v * float(config.RETRACTION_RATE);
             print("Ordered to Sell " + str(v) + " " + str(market)[0:3]);
             profits = profits + (float(v) * float(cp));
+            coin = coin - float(v);
             ls = placeSellOrder(market,client, v, cp, lb, ls);
             sales.append(float(cp));
     elif(float(ldl) == 7.0):
@@ -284,6 +297,7 @@ def evaluateDelegationLevelCrossing(market, dll, ldl, yp, cp, tv, lb, ls, purcha
             v = calculateDelegationTradeVolume(float(ldl),float(tv));
             print("Ordered to Purchase " + str(v) + " " + str(market)[0:3]);
             profits = profits - (float(v) * float(cp));
+            coin = coin + float(v);
             lb = placeBuyOrder(market,client, v, cp, lb, ls);
             purchases.append(float(cp));
         elif(float(cp) >= float(pd3) and float(config.CDA_MODE) <= 0):
@@ -292,6 +306,7 @@ def evaluateDelegationLevelCrossing(market, dll, ldl, yp, cp, tv, lb, ls, purcha
             v = v * float(config.RETRACTION_RATE);
             print("Ordered to Sell " + str(v) + " " + str(market)[0:3]);
             profits = profits + (float(v) * float(cp));
+            coin = coin - float(v);
             ls = placeSellOrder(market,client, v, cp, lb, ls);
             sales.append(float(cp));
     elif(float(ldl) == 8.0):
@@ -300,6 +315,7 @@ def evaluateDelegationLevelCrossing(market, dll, ldl, yp, cp, tv, lb, ls, purcha
             v = calculateDelegationTradeVolume(float(ldl),float(tv));
             print("Ordered to Purchase " + str(v) + " " + str(market)[0:3]);
             profits = profits - (float(v) * float(cp));
+            coin = coin + float(v);
             lb = placeBuyOrder(market,client, v, cp, lb, ls);
             purchases.append(float(cp));
         elif(float(cp) >= float(pd4) and float(config.CDA_MODE) <= 0):
@@ -308,6 +324,7 @@ def evaluateDelegationLevelCrossing(market, dll, ldl, yp, cp, tv, lb, ls, purcha
             v = v * float(config.RETRACTION_RATE);
             print("Ordered to Sell " + str(v) + " " + str(market)[0:3]);
             profits = profits + (float(v) * float(cp));
+            coin = coin - float(v);
             ls = placeSellOrder(market,client, v, cp, lb, ls);
             sales.append(float(cp));
     elif(float(ldl) == 9.0):
@@ -316,6 +333,7 @@ def evaluateDelegationLevelCrossing(market, dll, ldl, yp, cp, tv, lb, ls, purcha
             v = calculateDelegationTradeVolume(float(ldl),float(tv));
             print("Ordered to Purchase " + str(v) + " " + str(market)[0:3]);
             profits = profits - (float(v) * float(cp));
+            coin = coin + float(v);
             lb = placeBuyOrder(market,client, v, cp, lb, ls);
             purchases.append(float(cp));
         elif(float(cp) >= float(pd5) and float(config.CDA_MODE) <= 0):
@@ -324,6 +342,7 @@ def evaluateDelegationLevelCrossing(market, dll, ldl, yp, cp, tv, lb, ls, purcha
             v = v * float(config.RETRACTION_RATE);
             print("Ordered to Sell " + str(v) + " " + str(market)[0:3]);
             profits = profits + (float(v) * float(cp));
+            coin = coin - float(v);
             ls = placeSellOrder(market,client, v, cp, lb, ls);
             sales.append(float(cp));
     elif(float(ldl) == 10.0):
@@ -332,18 +351,20 @@ def evaluateDelegationLevelCrossing(market, dll, ldl, yp, cp, tv, lb, ls, purcha
             v = calculateDelegationTradeVolume(float(ldl),float(tv));
             print("Ordered to Purchase " + str(v) + " " + str(market)[0:3]);
             profits = profits - (float(v) * float(cp));
+            coin = coin + float(v);
             lb = placeBuyOrder(market,client, v, cp, lb, ls);
             purchases.append(float(cp));
         elif(float(cp) >= float(pd5)):
             ldl = 10.0;
 
-    output = [0.0,0.0,0.0,[],[],0.0];
+    output = [0.0,0.0,0.0,[],[],0.0,0.0];
     output[0] = ldl;
     output[1] = lb;
     output[2] = ls;
     output[3] = purchases;
     output[4] = sales;
     output[5] = profits;
+    output[6] = coin;
 
     return output;
 

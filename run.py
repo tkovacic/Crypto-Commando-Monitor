@@ -76,6 +76,8 @@ global sales;
 sales = [];
 global profits;
 profits = 0.00;
+global coin;
+coin = 0.00;
 
 print("Delegation Levels: " + str(dl) + " " + str(market)[4:]);
 print("Trade Volume: " + str(tv) + " " + str(market)[0:3]);
@@ -132,13 +134,14 @@ while True:
         ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
     tmpLdl = ldl;
 
-    metaData = evaluateDelegationLevelCrossing(market, delegationLevels, ldl, yp, cp, tv, lb, ls, purchases, sales, profits, client);
+    metaData = evaluateDelegationLevelCrossing(market, delegationLevels, ldl, yp, cp, tv, lb, ls, purchases, sales, profits, coin, client);
     ldl = metaData[0];
     lb = metaData[1];
     ls = metaData[2];
     purchases = metaData[3];
     sales = metaData[4];
     profits = metaData[5];
+    coin = metaData[6];
 
     if(float(tmpLdl) != float(ldl)):
         print("LDL Transitioned from: " + str(float(tmpLdl)) + " to: " + str(float(ldl)));
@@ -186,7 +189,7 @@ while True:
     plt.ylabel(str(market)[4:] + " Price per " + str(market)[0:3]);
     plt.show();
 
-    printInterface(market, tv, dl, pp, cp, yp, ldl, lb, ls, profits, tmpDelta, client);
+    printInterface(market, tv, dl, pp, cp, yp, ldl, lb, ls, profits, coin, tmpDelta, client);
 
     if(float(autoSave) >= float(config.SAVE_INTERVAL)):
         autoSave = 0;
