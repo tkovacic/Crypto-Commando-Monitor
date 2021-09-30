@@ -4,7 +4,7 @@
   <img src="https://static.wixstatic.com/media/c11e26_98214627f32540f7939870093be0a03b~mv2.png/v1/fill/w_560,h_456,al_c,q_85,usm_0.66_1.00_0.01/vectorstock_19626918_edited.webp">
 </div>
 <br>
-
+<div align="center">
 <img src="https://github.com/tkovacic/Crypto-Commando-Monitor/blob/main/readme0.PNG?raw=true">
 </div>
 
@@ -44,15 +44,12 @@ If TCP breaks below Delegation Level 5 and crosses back up past the YSP it will 
 If TCP breaks above Delegation level 6 and crosses back below past the YSP it will trigger a buy order for 1/10 trade volume.
 
 <img src="https://github.com/tkovacic/Crypto-Commando-Monitor/blob/main/readme1.PNG?raw=true">
-</div>
 
 Your margins are the max coin and fiat you need on hand for that 24 hour period to account for possible max price jump or dump with a total in fiat to account for both.
 Your holdings are the current coin and fiat you have on hand in your Coinbase Pro account.
 
 <img src="https://github.com/tkovacic/Crypto-Commando-Monitor/blob/main/readme2.PNG?raw=true">
-</div>
 <img src="https://github.com/tkovacic/Crypto-Commando-Monitor/blob/main/readme3.PNG?raw=true">
-</div>
 
 # Prerequisites
 1) Register an account on Coinbase Pro (https://pro.coinbase.com/)
