@@ -162,6 +162,9 @@ sData = [];
 udData = [];
 ldData = [];
 
+global rsp;
+rsp = float(dataInput[4]);
+
 while True:
     try:
         os.system('cls');
@@ -188,6 +191,11 @@ while True:
                     yp = float(cp);
                     dcpCounter = 0;
 
+        if(float(config.R_MODE) >= 1):
+            if(float(rsp) <= 0):
+                rsp = yp;
+            yp = rsp;
+
         delegationLevels = calculateDelegationLevels(dl, yp);
 
         if(ldl <= -1.0):
@@ -197,11 +205,11 @@ while True:
 
         if(float(config.R_MODE) >= 1):
             if(ldl <= 0):
-                yp = delegationLevels[5];
+                rsp = delegationLevels[5];
                 delegationLevels = calculateDelegationLevels(dl, yp);
                 ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
             elif(ldl >= 10):
-                yp = delegationLevels[4];
+                rsp = delegationLevels[4];
                 delegationLevels = calculateDelegationLevels(dl, yp);
                 ldl = identifyLastDelegationLevel(delegationLevels, yp, cp);
 
@@ -279,7 +287,7 @@ while True:
 
         if(float(autoSave) >= float(config.SAVE_INTERVAL)):
             autoSave = 0;
-            dataOutput = str(lb) + "," + str(ls) + "," + str(profits) + "," + str(coin);
+            dataOutput = str(lb) + "," + str(ls) + "," + str(profits) + "," + str(coin) + "," + str(rsp);
             with open('data.txt', 'w') as f:
                 f.write(dataOutput);
                 f.close();
