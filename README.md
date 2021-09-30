@@ -5,6 +5,9 @@
 </div>
 <br>
 
+<img src="https://github.com/tkovacic/Crypto-Commando-Monitor/blob/main/readme0.PNG?raw=true">
+</div>
+
 # How To Use CC Monitor
 In order to use this tool you must identify what coin and fiat you want to trade against and configure the tool accordingly. You must also understand what delegation level you desire and what trade volume you desire.
 
