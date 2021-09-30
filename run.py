@@ -115,7 +115,7 @@ while True:
     cycle_count = cycle_count + 1;
     print(OKCYAN + "Market: " + str(market));
     print("Interval: " + str(cycle_count));
-    print("Runtime: " + str(((float(cycle_count) * float(increment_pace)) / 3600)) + " Hours");
+    print("Runtime: " + str(round(((float(cycle_count) * float(increment_pace)) / 3600),2)) + " Hours");
 
     client = cbpro.AuthenticatedClient(config.API_KEY,config.API_SEC,config.API_PHR);
 
