@@ -40,7 +40,7 @@ increment_pace = float(config.SEC_INTERVAL);
 
 print("Keep Alive Interval: " + str(increment_pace) + " sec");
 print("Auto-Save Every " + str(config.SAVE_INTERVAL) + " Intervals");
-print("Max Charted Intervals: " + str(config.CHART_LENGTH));
+print("Only Chart " + str(config.CHART_LENGTH) + " Intervals");
 time.sleep(1);
 
 print("Loading Data...");
