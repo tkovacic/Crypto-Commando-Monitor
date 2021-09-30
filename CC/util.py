@@ -52,8 +52,10 @@ def printInterface(market, tv, dl, pp, cp, yp, ldl, lb, ls, profits, coin, tmpDe
     else:
         print("Last SO Price: " + str(ls) + " " + str(market)[4:]);
 
+    coinProfits = float(coin) * float(cp);
     print("");
-    print("Profits: " + str(profits) + " " + str(market)[4:] + " || " + str(coin) + " " + str(market)[0:3] + " / " + str(float(coin) * float(cp)) + " " + str(market)[4:]);
+    print("Profits: " + str(profits) + " " + str(market)[4:] + " || " + str(coin) + " " + str(market)[0:3] + " / " + str(coinProfits) + " " + str(market)[4:]);
+    print("Total Profits: " + str(float(profits) + float(coin)) + " " + str(market)[0:3]);
 
 def fetchCurrentQuote(market, client):
     bids = client.get_product_order_book(str(market));
