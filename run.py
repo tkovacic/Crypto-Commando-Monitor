@@ -240,7 +240,10 @@ while True:
     plt.plot(pData,c='r', ls=':', label="BO");
     plt.plot(sData,c='g', ls=':', label="SO");
     plt.plot(udData,c='y', ls='dashed', label="UDL");
-    plt.plot(ypData,c='k', ls='dashed', label="YSP");
+    if(float(config.DC_MODE) >= 1.0):
+        plt.plot(ypData,c='k', ls='dashed', label="DSP");
+    else:
+        plt.plot(ypData,c='k', ls='dashed', label="YSP");
     plt.plot(ldData,c='m', ls='dashed', label="LDL");
     plt.plot(yData,c='b', label="TCP");
 
