@@ -96,6 +96,7 @@ coin = 0.00;
 
 print("Loading Data...");
 
+global dataInput;
 dataInput = "";
 with open('data.txt') as f:
     dataInput = f.readlines();
@@ -163,7 +164,7 @@ udData = [];
 ldData = [];
 
 global rsp;
-rsp = float(dataInput[4]);
+rsp = dataInput[4];
 
 while True:
     try:
