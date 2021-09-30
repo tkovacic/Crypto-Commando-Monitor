@@ -27,8 +27,11 @@ FAIL = '\033[91m';
 global WARN;
 WARN = '\033[93m';
 
+os.system('cls');
+print("");
 print("Author: Timothy Damir Kovacic");
 print("Date: September 2021");
+print("");
 time.sleep(1);
 
 global st;
@@ -43,9 +46,8 @@ increment_pace = float(config.SEC_INTERVAL);
 print("Keep Alive Interval: " + str(increment_pace) + " sec");
 print("Auto-Save Every " + str(config.SAVE_INTERVAL) + " Intervals");
 print("Only Chart " + str(config.CHART_LENGTH) + " Intervals");
+print("");
 time.sleep(1);
-
-print("Loading Data...");
 
 global dl;
 dl = float(config.DELEGATION_LEVEL);
@@ -67,10 +69,21 @@ global yData;
 yData = [];
 global d;
 d = 0.0;
-global market;
-market = str(config.MARKET);
 global autoSave;
 autoSave = 0;
+global market;
+market = str(config.MARKET);
+global marketCoin;
+marketCoin = "";
+global marketFiat;
+marketFiat = "";
+
+if(len(market) > 7):
+    marketCoin = str(market)[0:4];
+    marketFiat = str(market)[5:];
+else:
+    marketCoin = str(market)[0:3];
+    marketFiat = str(market)[4:];
 
 global purchases;
 purchases = [];
@@ -81,9 +94,35 @@ profits = 0.00;
 global coin;
 coin = 0.00;
 
-print("Delegation Levels: " + str(dl) + " " + str(market)[4:]);
-print("Trade Volume: " + str(tv) + " " + str(market)[0:3]);
+print("Loading Data...");
+
+dataInput = "";
+with open('data.txt') as f:
+    dataInput = f.readlines();
+    f.close();
+
+dataInput = str(dataInput).replace("[","").replace("]","").replace("\n","").replace("'","").split(",");
+lb = dataInput[0];
+if(float(lb) <= -9999999999):
+    print("Last Bought Price: N/A");
+else:
+    print("Last Bought Price: " + str(lb));
+ls = dataInput[1];
+if(float(ls) >= 9999999999):
+    print("Last Sold Price: N/A");
+else:
+    print("Last Sold Price: " + str(ls));
+profits = dataInput[2];
+print("Current Fiat Profits: " + str(profits));
+coin = dataInput[3];
+print("Current Coin Profits: " + str(coin));
+print("");
+time.sleep(2);
+
+print("Delegation Levels: " + str(dl) + " " + marketFiat);
+print("Trade Volume: " + str(tv) + " " + marketCoin);
 print("Retraction Rate: " + str(float(config.RETRACTION_RATE) * 100) + "%");
+print("");
 
 cdaModeText = "INACTIVE";
 if(config.CDA_MODE >= 1):
@@ -93,19 +132,21 @@ dcmModeText = "INACTIVE";
 if(config.DC_MODE >= 1):
     dcmModeText = "ACTIVE";
 print("DC MODE: " + dcmModeText);
+print("");
 time.sleep(2);
 
-print("Selected Coin: " + str(market)[0:3]);
-print("Selected Fiat: " + str(market)[4:]);
+print("Selected Coin: " + marketCoin);
+print("Selected Fiat: " + marketFiat);
+print("");
 time.sleep(1);
 
 print("Starting...");
 time.sleep(15);
 
 plt.ion();
-plt.title("CC " + str(market)[0:3] + " Monitor [YSP Delta: Calibrating...]");
+plt.title("CC " + marketCoin + " Monitor [YSP Delta: Calibrating...]");
 plt.xlabel(str(increment_pace) + " Second Intervals");
-plt.ylabel(str(market)[4:] + " Price per " + str(market)[0:3]);
+plt.ylabel(marketFiat + " Price per " + marketCoin);
 plt.show();
 
 ypData = [];
@@ -157,7 +198,7 @@ while True:
 
     yData.append(float(cp));
 
-    metaData = evaluateDelegationLevelCrossing(market, delegationLevels, ldl, yp, cp, tv, lb, ls, purchases, sales, profits, coin, client);
+    metaData = evaluateDelegationLevelCrossing(market,  marketCoin, marketFiat, delegationLevels, ldl, yp, cp, tv, lb, ls, purchases, sales, profits, coin, client);
     ldl = metaData[0];
     lb = metaData[1];
     ls = metaData[2];
@@ -204,15 +245,20 @@ while True:
     plt.draw();
     plt.pause(0.0001);
     plt.clf();
-    plt.title("CC " + str(market)[0:3] + " Monitor [YSP Delta: " + str(tmpDelta) + "%]");
+    plt.title("CC " + marketCoin + " Monitor [YSP Delta: " + str(tmpDelta) + "%]");
     plt.xlabel(str(increment_pace) + " Second Intervals");
-    plt.ylabel(str(market)[4:] + " Price per " + str(market)[0:3]);
+    plt.ylabel(marketFiat + " Price per " + marketCoin);
     plt.show();
 
-    printInterface(market, tv, dl, pp, cp, yp, ldl, lb, ls, profits, coin, tmpDelta, client);
+    printInterface(market, marketCoin, marketFiat, tv, dl, pp, cp, yp, ldl, lb, ls, profits, coin, tmpDelta, client);
 
     if(float(autoSave) >= float(config.SAVE_INTERVAL)):
         autoSave = 0;
+        dataOutput = str(lb) + "," + str(ls) + "," + str(profits) + "," + str(coin);
+        with open('data.txt', 'w') as f:
+            f.write(dataOutput);
+            f.close();
+        print("AUTO-SAVE TRIGGERED!");
     else:
         autoSave = autoSave + 1;
 
