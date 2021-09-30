@@ -39,7 +39,8 @@ def printInterface(market, marketCoin, marketFiat, tv, dl, pp, cp, yp, ldl, lb, 
     totalUsdHoldings = float(totalAdaHoldings) * float(cp);
 
     print("Margins: " + str(round(totalAdaHoldings,6)) + " " + marketCoin + " / " + str(round(float(totalUsdHoldings),2)) + " " + marketFiat + " || Total: " + str(round(float(totalUsdHoldings)*2,2)) + " " + marketFiat);
-    print("Holding: " + str(round(float(client.get_account(config.COIN_ID)["balance"]),2)) + " " + marketCoin + " / " + str(round(float(client.get_account(config.FIAT_ID)["balance"]),2)) + " " + marketFiat + " || Total: " + str(round((round(float(client.get_account(config.COIN_ID)["balance"]),2) * float(cp)) + round(float(client.get_account(config.FIAT_ID)["balance"]),2),2)) + " " + marketFiat);
+    if(str(config.COIN_ID) != "" and str(config.FIAT_ID) != ""):
+        print("Holding: " + str(round(float(client.get_account(config.COIN_ID)["balance"]),2)) + " " + marketCoin + " / " + str(round(float(client.get_account(config.FIAT_ID)["balance"]),2)) + " " + marketFiat + " || Total: " + str(round((round(float(client.get_account(config.COIN_ID)["balance"]),2) * float(cp)) + round(float(client.get_account(config.FIAT_ID)["balance"]),2),2)) + " " + marketFiat);
     print("");
 
     if(float(lb) == -9999999999):
